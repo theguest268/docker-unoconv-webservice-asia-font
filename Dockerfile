@@ -1,4 +1,4 @@
-FROM node:12.16.3-buster-slim
+FROM node:12.18.3-buster-slim
 LABEL maintainer='Huy Dang <theguest268@gmail.com>'
 
 # Installs git, unoconv and Japanese fonts
@@ -6,7 +6,8 @@ RUN apt-get update && apt-get -y install \
     apt-utils \
     locales \
     git \
-    unoconv=0.7-1.1 \
+    python3-pip \
+    unoconv \
     # ttf-wqy-zenhei \
     # fonts-arphic-ukai \
     # fonts-arphic-uming \
@@ -20,7 +21,8 @@ RUN apt-get update && apt-get -y install \
     # fonts-noto-cjk \
     # fonts-noto-cjk-extra \
 && rm -rf /var/lib/apt/lists/* \
-&& apt-get -qyy clean
+&& apt-get -qyy clean \
+&& pip3 install unoconv
 
 # Install locale
 RUN locale-gen ja_JP.UTF-8
@@ -36,6 +38,8 @@ WORKDIR /unoconvservice
 
 # Install dependencies
 RUN npm install --production
+
+COPY unoconv2.js /unoconvservice/node_modules/unoconv2/index.js
 
 # Env variables
 ENV SERVER_PORT 3000

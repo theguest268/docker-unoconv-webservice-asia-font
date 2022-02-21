@@ -5,9 +5,9 @@ Based on [docker-unoconv-webservice](https://github.com/zrrrzzt/docker-unoconv-w
 
 ## Versions
 
-Node 12.16.3
+Node 12.18.3
 
-Unconv 0.7-1.1
+Unconv 0.9
 
 ## Build
 
